@@ -32,7 +32,12 @@ func (a *Application) String() string {
 
 func main() {
 	app := &Application{}
+	app.loadCookies(app)
 
+	fmt.Println(app)
+}
+
+func (a *Application) loadCookies(app *Application) {
 	file, err := os.Open(cookiesFile)
 	if err != nil {
 		log.Fatal(err)
@@ -48,8 +53,7 @@ func main() {
 
 	for scanner.Scan() {
 		for scanner.Scan() {
-			line := scanner.Text()
-			parts := strings.Fields(line)
+			parts := strings.Fields(scanner.Text())
 
 			app.cookies = append(app.cookies, Cookie{
 				Domain: parts[0],
@@ -64,6 +68,4 @@ func main() {
 	if scanner.Err() != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Println(app)
 }
