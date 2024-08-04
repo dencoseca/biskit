@@ -21,17 +21,11 @@ func (a *Application) String() string {
 
 const cookiesFile = "./.idea/httpRequests/http-client.cookies"
 
-func (a *Application) loadCookies(app *Application) (err error) {
+func (a *Application) loadCookies(app *Application) error {
 	file, err := os.Open(cookiesFile)
 	if err != nil {
 		return err
 	}
-	defer func(file *os.File) {
-		closeErr := file.Close()
-		if closeErr != nil {
-			err = closeErr
-		}
-	}(file)
 
 	scanner := bufio.NewScanner(file)
 
@@ -50,6 +44,11 @@ func (a *Application) loadCookies(app *Application) (err error) {
 	}
 
 	if scanner.Err() != nil {
+		return err
+	}
+
+	err = file.Close()
+	if err != nil {
 		return err
 	}
 
