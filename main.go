@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -9,10 +10,25 @@ import (
 const cookiesFile = "./.idea/httpRequests/http-client.cookies"
 
 func main() {
-	cookies, err := os.ReadFile(cookiesFile)
+	file, err := os.Open(cookiesFile)
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer func(file *os.File) {
+		err := file.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}(file)
 
-	fmt.Println(string(cookies))
+	scanner := bufio.NewScanner(file)
+	scanner.Scan()
+
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+	}
+
+	if scanner.Err() != nil {
+		log.Fatal(err)
+	}
 }
