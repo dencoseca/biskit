@@ -2,16 +2,13 @@ package main
 
 import (
 	"fmt"
-	"log"
+	tea "github.com/charmbracelet/bubbletea"
+	"os"
 )
 
 func main() {
-	app := &Application{}
-
-	err := app.loadCookies(app)
-	if err != nil {
-		log.Fatal(err)
+	if _, err := tea.NewProgram(newModel(), tea.WithAltScreen()).Run(); err != nil {
+		fmt.Println("Error running program:", err)
+		os.Exit(1)
 	}
-
-	fmt.Println(app)
 }
