@@ -1,6 +1,6 @@
 # Biskit
 
-A cli tool to manage JetBrains HTTP cli cookies.
+A cli tool to manage JetBrains HTTP client cookies.
 
 ## installation
 
