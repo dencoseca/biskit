@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
@@ -88,8 +89,11 @@ func newModel() model {
 	// Make initial list of items
 	items := make([]list.Item, len(cookies))
 	for i, cookie := range cookies {
+		parts := strings.Fields(cookie)
+
 		items[i] = item{
-			title: cookie,
+			title:       strings.Join(parts[0:2], " "),
+			description: fmt.Sprintf("%s\n%s", parts[3], strings.Join(parts[4:], " ")),
 		}
 	}
 
