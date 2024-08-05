@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"github.com/atotto/clipboard"
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
@@ -22,7 +24,12 @@ func newItemDelegate(keys *delegateKeyMap) list.DefaultDelegate {
 		case tea.KeyMsg:
 			switch {
 			case key.Matches(msg, keys.choose):
-				return m.NewStatusMessage(statusMessageStyle("You chose " + title))
+				err := clipboard.WriteAll(title)
+				if err != nil {
+					fmt.Println(err)
+					return nil
+				}
+				return m.NewStatusMessage(statusMessageStyle("Copied " + title + " to the clipboard!"))
 
 			case key.Matches(msg, keys.remove):
 				index := m.Index()
