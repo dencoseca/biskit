@@ -99,10 +99,10 @@ func newModel() model {
 
 	// Setup list
 	delegate := newItemDelegate(delegateKeys)
-	groceryList := list.New(items, delegate, 0, 0)
-	groceryList.Title = "Cookies! Nom nom nom!"
-	groceryList.Styles.Title = titleStyle
-	groceryList.AdditionalFullHelpKeys = func() []key.Binding {
+	cookiesList := list.New(items, delegate, 0, 0)
+	cookiesList.Title = "Cookies! Nom nom nom!"
+	cookiesList.Styles.Title = titleStyle
+	cookiesList.AdditionalFullHelpKeys = func() []key.Binding {
 		return []key.Binding{
 			listKeys.toggleSpinner,
 			listKeys.insertItem,
@@ -114,7 +114,7 @@ func newModel() model {
 	}
 
 	return model{
-		list:         groceryList,
+		list:         cookiesList,
 		keys:         listKeys,
 		delegateKeys: delegateKeys,
 	}
