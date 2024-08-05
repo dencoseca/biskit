@@ -6,6 +6,7 @@ import (
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/list"
 	tea "github.com/charmbracelet/bubbletea"
+	"strings"
 )
 
 func newItemDelegate(keys *delegateKeyMap) list.DefaultDelegate {
@@ -31,7 +32,8 @@ func newItemDelegate(keys *delegateKeyMap) list.DefaultDelegate {
 					fmt.Println(err)
 					return nil
 				}
-				return m.NewStatusMessage(statusMessageStyle("Copied " + title + " cookie to the clipboard!"))
+				parts := strings.Fields(title)
+				return m.NewStatusMessage(statusMessageStyle(fmt.Sprintf("Copied %s %s cookie to the clipboard!", parts[0], parts[2])))
 
 			case key.Matches(msg, keys.remove):
 				index := m.Index()
@@ -39,7 +41,8 @@ func newItemDelegate(keys *delegateKeyMap) list.DefaultDelegate {
 				if len(m.Items()) == 0 {
 					keys.remove.SetEnabled(false)
 				}
-				return m.NewStatusMessage(statusMessageStyle("Deleted " + title + "cookie"))
+				parts := strings.Fields(title)
+				return m.NewStatusMessage(statusMessageStyle(fmt.Sprintf("Deleted %s %s cookie", parts[0], parts[2])))
 			}
 		}
 
