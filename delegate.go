@@ -39,7 +39,7 @@ func newItemDelegate(keys *delegateKeyMap) list.DefaultDelegate {
 				if len(m.Items()) == 0 {
 					keys.remove.SetEnabled(false)
 				}
-				return m.NewStatusMessage(statusMessageStyle("Deleted " + title))
+				return m.NewStatusMessage(statusMessageStyle("Deleted " + title + "cookie"))
 			}
 		}
 
