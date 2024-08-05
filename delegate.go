@@ -13,9 +13,11 @@ func newItemDelegate(keys *delegateKeyMap) list.DefaultDelegate {
 
 	d.UpdateFunc = func(msg tea.Msg, m *list.Model) tea.Cmd {
 		var title string
+		var description string
 
 		if i, ok := m.SelectedItem().(item); ok {
 			title = i.Title()
+			description = i.Description()
 		} else {
 			return nil
 		}
@@ -24,12 +26,12 @@ func newItemDelegate(keys *delegateKeyMap) list.DefaultDelegate {
 		case tea.KeyMsg:
 			switch {
 			case key.Matches(msg, keys.choose):
-				err := clipboard.WriteAll(title)
+				err := clipboard.WriteAll(description)
 				if err != nil {
 					fmt.Println(err)
 					return nil
 				}
-				return m.NewStatusMessage(statusMessageStyle("Copied " + title + " to the clipboard!"))
+				return m.NewStatusMessage(statusMessageStyle("Copied " + title + " cookie to the clipboard!"))
 
 			case key.Matches(msg, keys.remove):
 				index := m.Index()
