@@ -85,7 +85,7 @@ func newModel() model {
 
 	cookies := loadCookies()
 
-	// Make initial list of items
+	// Make an initial list of items
 	items := make([]list.Item, len(cookies))
 	for i, cookie := range cookies {
 		parts := strings.Fields(cookie)
